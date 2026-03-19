@@ -27,3 +27,4 @@ TwoSumHashTable: Optimized approach using a hash table
 - **Unit Tests**: Write tests for normal cases, edge cases (e.g., [2,7,11,15], target=9 → [0,1]; [3,3], target=6 → [0,1]; [-1,-2,-3,-4,-5], target=-8 → [2,4]).
 - **Coverage**: Ensure tests cover both implementations and fail cases (e.g., no solution, though problem assumes one exists).
 - **Tools**: Use pytest or unittest for testing.
+

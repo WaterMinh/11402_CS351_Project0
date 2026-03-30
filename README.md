@@ -6,8 +6,8 @@ Given an array of integers `nums` and an integer `target`, return the indices of
 # Implementation Scenarios
 You must implement two solutions:
 
-TwoSumArray: Brute force approach using nested loops
-TwoSumHashTable: Optimized approach using a hash table
+- TwoSumArray: Brute force approach using nested loops  
+- TwoSumHashTable: Optimized approach using a hash table  
 
 # Requirements
 
@@ -20,11 +20,32 @@ TwoSumHashTable: Optimized approach using a hash table
 
 ## Non-Functional Requirements
 - **Performance**: TwoSumHashTable must handle up to 10^4 elements efficiently.
-- **Language**: Implement in Python (or specify if different).
+- **Language**: Implement in C++.
 - **Edge Cases**: Handle arrays with negative numbers, zeros, and duplicates (but ensure unique indices).
 
 ## Testing Requirements
 - **Unit Tests**: Write tests for normal cases, edge cases (e.g., [2,7,11,15], target=9 → [0,1]; [3,3], target=6 → [0,1]; [-1,-2,-3,-4,-5], target=-8 → [2,4]).
 - **Coverage**: Ensure tests cover both implementations and fail cases (e.g., no solution, though problem assumes one exists).
-- **Tools**: Use pytest or unittest for testing.
+- **Tools**: Use C++ test execution via compiled test file.
 
+## Example
+
+Input:
+nums = [2,7,11,15]  
+target = 9  
+
+Output:
+[0,1]
+
+## How to Run
+
+g++ -Iinclude src/twosum.cpp tests/test_twosum.cpp -o test  
+./test  
+
+## Project Structure
+
+.github/workflows/   # CI pipeline  
+docs/                # documentation  
+include/             # header files  
+src/                 # source code  
+tests/               # unit tests  

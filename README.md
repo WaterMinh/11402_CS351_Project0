@@ -91,3 +91,8 @@ Given an array of integers `nums` and an integer `target`, return the indices of
 ```bash
 g++ -Iinclude src/twosum.cpp tests/test_twosum.cpp -o test
 ./test
+```
+### Run main program
+```bash
+g++ -Iinclude src/main.cpp src/twosum.cpp -o main
+./main

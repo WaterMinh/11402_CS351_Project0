@@ -1,51 +1,85 @@
-# Two Sum
+# Project 0 – Two Sum (C++)
 
-# Project Overview
-Given an array of integers `nums` and an integer `target`, return the indices of the two numbers that add up to the target. You may assume each input has exactly one solution, and you cannot use the same element twice.
+## 📌 Objective
+The goal of this project is to implement and compare two different approaches to solve the classic "Two Sum" problem, focusing on algorithmic complexity and performance.
 
-# Implementation Scenarios
-You must implement two solutions:
+---
 
-- TwoSumArray: Brute force approach using nested loops  
-- TwoSumHashTable: Optimized approach using a hash table  
+## 🧠 Problem Description
+Given an array of integers `nums` and an integer `target`, return the indices of the two numbers such that they add up to the target.
 
-# Requirements
+- Each input has exactly one solution.
+- The same element cannot be used twice.
+- The result must be returned in ascending index order.
 
-## Functional Requirements
-- **Input Validation**: The function must accept an array of integers (`nums`) and an integer (`target`). Assume `nums` has at least 2 elements and at most 10^4 elements, with values ranging from -10^9 to 10^9. `target` ranges from -10^9 to 10^9.
-- **Output**: Return a list or array of two indices (0-based) where the elements at those positions sum to `target`. Indices must be in ascending order (e.g., [i, j] where i < j).
-- **Uniqueness**: Each element can be used only once. There is exactly one solution per input.
-- **TwoSumArray Implementation**: Use nested loops to check all pairs. Time complexity: O(n^2), Space complexity: O(1).
-- **TwoSumHashTable Implementation**: Use a hash map to store complements. Time complexity: O(n), Space complexity: O(n).
+---
 
-## Non-Functional Requirements
-- **Performance**: TwoSumHashTable must handle up to 10^4 elements efficiently.
-- **Language**: Implement in C++.
-- **Edge Cases**: Handle arrays with negative numbers, zeros, and duplicates (but ensure unique indices).
+## ⚙️ Implementations
 
-## Testing Requirements
-- **Unit Tests**: Write tests for normal cases, edge cases (e.g., [2,7,11,15], target=9 → [0,1]; [3,3], target=6 → [0,1]; [-1,-2,-3,-4,-5], target=-8 → [2,4]).
-- **Coverage**: Ensure tests cover both implementations and fail cases (e.g., no solution, though problem assumes one exists).
-- **Tools**: Use C++ test execution via compiled test file.
+### 🔹 1. TwoSumArray (Brute Force)
+- Uses nested loops to check all pairs.
+- Time Complexity: **O(n²)**
+- Space Complexity: **O(1)**
 
-## Example
+---
 
-Input:
-nums = [2,7,11,15]  
-target = 9  
+### 🔹 2. TwoSumHashTable (Optimized)
+- Uses a hash map to store complements.
+- Time Complexity: **O(n)**
+- Space Complexity: **O(n)**
 
-Output:
-[0,1]
+---
 
-## How to Run
+## 📂 Project Structure
 
-g++ -Iinclude src/twosum.cpp tests/test_twosum.cpp -o test  
-./test  
+```
+Project0/
+│
+├── include/ # Header files
+├── src/ # Source code
+├── tests/ # Unit tests
+├── docs/ # Additional documentation
+└── README.md
+```
 
-## Project Structure
+---
 
-.github/workflows/   # CI pipeline  
-docs/                # documentation  
-include/             # header files  
-src/                 # source code  
-tests/               # unit tests  
+## 🛠 Requirements
+
+### Functional Requirements
+- Input: integer array `nums` and integer `target`
+- Output: two indices `[i, j]` such that `nums[i] + nums[j] = target`
+- Indices must be in ascending order
+- Exactly one solution exists
+
+---
+
+### Non-Functional Requirements
+- Must handle up to **10⁴ elements efficiently**
+- Must be implemented in **C++**
+- Must handle edge cases:
+  - Negative numbers
+  - Duplicates
+  - Zeros
+
+---
+
+## 🧪 Testing
+
+### Example Test Cases
+- `[2,7,11,15], target=9 → [0,1]`
+- `[3,3], target=6 → [0,1]`
+- `[-1,-2,-3,-4,-5], target=-8 → [2,4]`
+
+### Coverage
+- Normal cases
+- Edge cases
+- Both implementations
+
+---
+
+## ▶️ How to Run
+
+```bash
+g++ -Iinclude src/twosum.cpp tests/test_twosum.cpp -o test
+./test

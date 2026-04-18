@@ -1,5 +1,11 @@
 # Project 0 – Two Sum (C++)
 
+## 📌 Overview
+
+This repository contains the implementation of Project 0 for CS351, focusing on solving the Two Sum problem using both brute-force and optimized approaches.
+
+The project demonstrates algorithmic thinking, performance comparison, and clean C++ project structure.
+
 ## 📌 Objective
 The goal of this project is to implement and compare two different approaches to solve the classic "Two Sum" problem, focusing on algorithmic complexity and performance.
 
@@ -33,12 +39,13 @@ Given an array of integers `nums` and an integer `target`, return the indices of
 ## 📂 Project Structure
 
 ```
-Project0/
+11402_CS351_Project0/
 │
-├── include/ # Header files
 ├── src/ # Source code
+├── include/ # Header files
 ├── tests/ # Unit tests
-├── docs/ # Additional documentation
+├── docs/ # Reports & documentation
+├── .github/ # CI workflow
 └── README.md
 ```
 
@@ -80,6 +87,7 @@ Project0/
 
 ## ▶️ How to Run
 
+### Run unit tests
 ```bash
 g++ -Iinclude src/twosum.cpp tests/test_twosum.cpp -o test
 ./test

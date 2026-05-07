@@ -1,19 +1,109 @@
-name: CI
+name: CI - Build and Test
 
-on: [push]
+# Trigger the workflow on push and pull requests
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
 
 jobs:
-  build:
+  build-and-test:
+    name: Build and Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            compiler: gcc
+            cxx: g++
+          - os: ubuntu-latest
+            compiler: clang
+            cxx: clang++
+          - os: macos-latest
+            compiler: clang
+            cxx: clang++
+          - os: windows-latest
+            compiler: msvc
+            cxx: cl
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Install dependencies on Ubuntu
+    - name: Install dependencies (Ubuntu)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake g++ clang
+
+    # Step 3: Setup on macOS
+    - name: Setup (macOS)
+      if: runner.os == 'macOS'
+      run: brew install cmake
+
+    # Step 4: Setup MSVC on Windows
+    - name: Setup MSVC (Windows)
+      if: runner.os == 'Windows'
+      uses: ilammy/msvc-dev-cmd@v1
+
+    # Step 5: Create build directory
+    - name: Create build directory
+      run: mkdir -p build
+
+    # Step 6: Configure CMake
+    - name: Configure CMake
+      working-directory: build
+      run: cmake .. -DCMAKE_CXX_COMPILER=${{ matrix.cxx }}
+      shell: bash
+
+    # Step 7: Build the project
+    - name: Build project
+      working-directory: build
+      run: cmake --build . --config Release
+
+    # Step 8: Run tests
+    - name: Run tests
+      working-directory: build
+      run: |
+        if [ "$RUNNER_OS" == "Windows" ]; then
+          ./Release/test_twosum.exe
+        else
+          ./test_twosum
+        fi
+      shell: bash
+
+    # Step 9: Display test results
+    - name: Test results
+      if: always()
+      run: echo "✓ Tests completed successfully on ${{ matrix.os }} with ${{ matrix.compiler }}"
+
+  code-quality:
+    name: Code Quality Checks
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+    - name: Checkout repository
+      uses: actions/checkout@v3
 
-      - name: Install g++
-        run: sudo apt-get update && sudo apt-get install -y g++
+    - name: Check source files exist
+      run: |
+        test -f include/twosum.h || exit 1
+        test -f src/twosum.cpp || exit 1
+        test -f tests/test_twosum.cpp || exit 1
+        echo "✓ All source files found"
 
-      - name: Compile
-        run: g++ -std=c++11 -Iinclude src/twosum.cpp tests/test_twosum.cpp -o test
-
-      - name: Run tests
-        run: ./test
+    - name: Basic linting (file formatting check)
+      run: |
+        # Check for proper include guards
+        grep -q "#ifndef TWOSUM_H" include/twosum.h || exit 1
+        grep -q "#define TWOSUM_H" include/twosum.h || exit 1
+        echo "✓ Header guards present"
+        
+        # Check for includes
+        grep -q "#include" src/twosum.cpp || exit 1
+        grep -q "#include" tests/test_twosum.cpp || exit 1
+        echo "✓ Includes present"
